@@ -1,0 +1,29 @@
+---
+- name: DEPLOY AS3 DEC
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    uri_method: POST
+
+  vars_files:
+    - ../Creds/big_creds.yaml
+
+  tasks: 
+      - name: Create an AS3
+        uri:
+          url: https://20.39.162.40/mgmt/shared/appsvcs/declare
+          user: "{{big_user}}"
+          password: "{{big_pass}}"
+          method: "{{uri_method}}"
+          body: "{{ lookup('file','AS3.json') }}"
+          force_basic_auth: yes
+          status_code: 200
+          validate_certs: no
+          body_format: json
+        
+...
+
+
+
